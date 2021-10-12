@@ -1,0 +1,46 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "plugins": ["import", "react", "react-hooks", "jsx-a11y"],
+  "extends": ["airbnb-typescript"],
+  "rules": {
+    "strict": ["error", "global"],
+    "max-len": "off",
+    "no-plusplus": "off",
+    "no-multi-spaces": "off",
+    "space-before-function-paren": "off",
+    "arrow-body-style": "off",
+    "no-useless-escape": "off",
+    "class-methods-use-this": "warn",
+    "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+    "no-restricted-syntax": ["off", "ForOfStatement"],
+    "no-param-reassign": "warn",
+    "prefer-object-spread": ["warn"],
+    "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": "warn",
+    "object-curly-newline": ["error", { "multiline": true }],
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
+    "jsx-a11y/no-autofocus": "warn",
+    "jsx-a11y/media-has-caption": "off",
+    "jsx-a11y/click-events-have-key-events": "warn",
+    "jsx-a11y/no-static-element-interactions": "warn",
+    "jsx-a11y/label-has-associated-control": [ "error", {
+      "required": {
+        "some": ["nesting", "id"]
+      }
+    }],
+    "no-use-before-define": "off",
+    "react/prop-types": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "@typescript-eslint/no-throw-literal": "warn",
+    "@typescript-eslint/no-use-before-define": "warn"
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaVersion": 2020
+  }
+}
