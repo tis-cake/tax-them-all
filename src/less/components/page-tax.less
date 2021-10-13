@@ -1,0 +1,24 @@
+.page-tax {
+  box-sizing: border-box;
+  min-height: 100vh;
+  display: flex;
+  padding: 16px;
+
+  &__tax {
+    padding-top: 16px;
+  }
+}
+
+@media screen and (min-width: @tablet-width) {
+  .page-tax {
+    padding: 0;
+    padding-top: 120px;
+    padding-bottom: 88px;
+    background-color: rgba(0, 0, 0, 0.3);
+
+    &__tax {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}

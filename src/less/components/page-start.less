@@ -1,0 +1,20 @@
+.page-start {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+
+  background-color:#FF5E56;
+  background-image: linear-gradient(255.35deg, #DC3131 0.83%, rgba(255, 79, 79, 0) 108.93%);
+  box-shadow: 0px -0.11px 16.9495px rgba(183, 187, 225, 0.33);
+
+  &__link {
+    width: 149px;
+    filter: drop-shadow(0px 0px 44px #CFDAE7);
+  }
+}
+
+@media screen and (min-width: @tablet-width) {
+  .page-start__link {
+    width: 198px;
+  }
+}

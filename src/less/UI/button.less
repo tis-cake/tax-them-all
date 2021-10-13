@@ -1,0 +1,49 @@
+.ui-button {
+  box-sizing: border-box;
+  height: 40px;
+  padding: 0 5px;
+
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  border-radius: 6px;
+
+  &--primary {
+    width: 100%;
+    color: #FFFFFF;
+    background-color: #FF5E56;
+    background-image: linear-gradient(255.35deg, #DC3131 0.83%, rgba(255, 79, 79, 0) 108.93%);
+    box-shadow: 0px 0px 24px rgba(234, 0, 41, 0.33);
+
+    &:hover,
+    &:focus {
+      background-color: #EA0029;
+      box-shadow: 0px 0px 24px rgba(234, 0, 41, 0.33);
+    }
+  }
+
+  &--secondary {
+    color: #fff;
+    border: 1px solid #FFFFFF;
+
+    &:hover,
+    &:focus {
+      color: #000;
+      background-color: #FFFFFF;
+      filter: initial;
+    }
+  }
+
+  &:disabled {
+    background-color: #BEC5CC;
+    box-shadow: initial;
+  }
+}
+
+@media screen and (min-width: @tablet-width) {
+  .ui-button {
+    height: 56px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}

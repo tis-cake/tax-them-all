@@ -65,7 +65,7 @@ module.exports = {
     filename: getFileName('js'),
     path: path.resolve(__dirname, 'build'),
     publicPath : '/',
-    assetModuleFilename: 'assets/[name][ext]',
+    assetModuleFilename: '[path][name].[ext]',
   },
   devServer: {
     port: 8082,
@@ -117,7 +117,7 @@ module.exports = {
         use: jsLoaders('@babel/preset-react', '@babel/preset-typescript'),
       },
       {
-        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        test: /\.(png|jpe?g|svg|gif|woff|woff2|eot|ttf|otf)$/i,
         type: 'asset/resource',
       },
     ],

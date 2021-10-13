@@ -1,0 +1,117 @@
+.ui-input {
+  width: 100%;
+  height: 40px;
+  padding: 8px;
+
+  opacity: 1;
+  border: 1px solid #DFE3E6;
+  border-radius: 3px;
+
+  &::placeholder {
+    color:    #BEC5CC;
+    opacity:  1;
+  }
+
+  &:hover {
+    border: 1px solid #000;
+  }
+
+  &:focus {
+    &::placeholder {
+      color: #000;
+    }
+  }
+
+  &:disabled {
+    color: #808080;
+    border: 1px solid #808080;
+  }
+}
+
+.ui-label {
+  display: inline-block;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.ui-tag {
+  &-label {
+    display: inline-flex;
+    align-items: center;
+    height: 36px;
+    padding: 6px 12px;
+
+    background-color: #EEF0F2;
+    border-radius: 50px;
+  }
+
+  &:checked + .ui-tag-label {
+    color: #fff;
+    background-color: #FF5E56;
+    background-image: linear-gradient(255.35deg, #DC3131 0.83%, rgba(255, 79, 79, 0) 108.93%);
+  }
+}
+
+.ui-checkbox {
+  &-label {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 30px;
+
+    span {
+      color: #808080;
+    }
+
+    &::before {
+      position: absolute;
+      content: '';
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0;
+      width: 20px;
+      height: 20px;
+
+      border: 1px solid #DFE3E6;
+      border-radius: 6px;
+    }
+
+    &::after {
+      position: absolute;
+      content: '';
+      width: 14px;
+      height: 11px;
+      top: 50%;
+      left: 3px;
+      transform: translateY(-50%);
+
+      background-image: url('../../assets/img/icon-check.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+
+    &:hover {
+      &::before {
+        border: 1px solid #000;
+      }
+    }
+  }
+
+  &:checked + .ui-checkbox-label {
+    &::before {
+      border-width: 0;
+      background-color: #FF5E56;
+      background-image: linear-gradient(255.35deg, #DC3131 0.83%, rgba(255, 79, 79, 0) 108.93%);
+    }
+  }
+
+  &:disabled + .ui-checkbox-label {
+    &::before {
+      background-color: #BEC5CC;
+      border: 1px solid #BEC5CC;
+    }
+  }
+}
