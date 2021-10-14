@@ -5,13 +5,13 @@ import { getTaxDeductions } from '../../../utils/calc';
 import { formatNumSpaces, formatYearDesc } from '../../../utils/format';
 
 interface ITaxDetailPaymentProps {
-  salary: string,
+  data: string,
 }
 
 const MAX_EL_PER_OVERFLOW = 4;
 
-const TaxDetailPayment: React.FC<ITaxDetailPaymentProps> = ({ salary }) => {
-  const taxDeductions = getTaxDeductions(salary);
+const TaxDetailPayment: React.FC<ITaxDetailPaymentProps> = ({ data }) => {
+  const taxDeductions = getTaxDeductions(data);
   const listOverflowClass = (taxDeductions.length > MAX_EL_PER_OVERFLOW)
     ? 'tax__detail-list--overflow'
     : '';

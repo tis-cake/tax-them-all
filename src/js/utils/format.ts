@@ -12,7 +12,9 @@ const EndNouns = {
 };
 
 const formatNumSpaces = (num: number): string => {
-  return new Intl.NumberFormat('ru-RU').format(num);
+  return (num === 0)
+    ? ''
+    : new Intl.NumberFormat('ru-RU').format(num);
 };
 
 const formatEndNouns = (num: number): string => {

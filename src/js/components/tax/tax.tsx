@@ -9,8 +9,15 @@ import { TaxDetailPayment } from './tax-detail-payment/tax-detail-payment';
 import { TaxButtonSubmit } from './tax-button-submit/tax-button-submit';
 import { ButtonClose } from '../share/button-close/button-close';
 
-import { AppRoute, TaxRoute } from '../../const';
 import { PageContext } from '../../context';
+import {
+  AppRoute,
+  TaxRoute,
+  INVALID_MESSAGE_PATTERN_MIN,
+} from '../../const';
+
+import { formatNumSpaces } from '../../utils/format';
+import { getMatchedNum, validateInput } from '../../utils/validate';
 
 interface ITaxProps {
   overlayRef: React.MutableRefObject<HTMLDivElement>
@@ -21,6 +28,7 @@ const KEY_ENTER: string = 'Enter';
 
 const Tax: React.FC<ITaxProps> = ({ overlayRef }) => {
   const [salary, setSalary] = useState('');
+  const [numbers, setNumbers] = useState('');
   const [category, setCategory] = useState(TaxRoute.CATEGORY_PAYMENT);
   const [calculated, setCalculated] = useState(false);
   const [validated, setValidated] = useState(false);
@@ -34,8 +42,19 @@ const Tax: React.FC<ITaxProps> = ({ overlayRef }) => {
 
   const handleInputSalaryChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     setCalculated(false);
-    setSalary(evt.currentTarget.value);
+
+    const currentValue: string = getMatchedNum(evt.currentTarget.value);
+    const isValid: boolean = validateInput(currentValue);
+
+    if (!isValid) {
+      salaryRef.current.setCustomValidity(INVALID_MESSAGE_PATTERN_MIN);
+    } else if (isValid) {
+      salaryRef.current.setCustomValidity('');
+    }
+
+    setSalary(formatNumSpaces(Number(currentValue)));
     setValidated(salaryRef.current.validity.valid);
+    setNumbers(currentValue);
   };
 
   // Enter по заполненному инпуту вызовет подсчёт и вывод данных
@@ -104,7 +123,7 @@ const Tax: React.FC<ITaxProps> = ({ overlayRef }) => {
           handleButtonCalcClick={handleButtonCalcClick}
         />
 
-        {isCategoryPayment && calculated && <TaxDetailPayment salary={salary} />}
+        {isCategoryPayment && calculated && <TaxDetailPayment data={numbers} />}
 
         {isCategoryTerm && calculated && <TaxDetailTerm />}
 

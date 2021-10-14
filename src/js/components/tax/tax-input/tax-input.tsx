@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { INVALID_MESSAGE_PATTERN_MIN } from '../../../const';
+
 interface ITaxInputProps {
   salary: string,
   salaryRef: React.MutableRefObject<HTMLInputElement>,
@@ -25,10 +27,13 @@ const TaxInput: React.FC<ITaxInputProps> = (props) => {
       </label>
       <input
         className="tax__input-salary ui-input"
-        type="number"
         id="field-salary"
-        step="100"
-        min="10000"
+        title={INVALID_MESSAGE_PATTERN_MIN}
+        type="text"
+        pattern="(\d+)(\s*\d+)*"
+        // type="number"
+        // step="100"
+        // min="10000"
         required
         placeholder="Введите данные"
         ref={salaryRef}
