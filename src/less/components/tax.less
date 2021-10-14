@@ -28,12 +28,12 @@
     margin-top: 28px;
   }
 
-  &__input-tel-label,
-  &__input-tel {
+  &__input-salary-label,
+  &__input-salary {
     margin-bottom: 12px;
   }
 
-  &__input-tel {
+  &__input-salary {
     -moz-appearance: textfield;
 
     &::-webkit-outer-spin-button,
@@ -56,9 +56,13 @@
     &:focus {
       color: #F53A31;
     }
+
+    &:disabled {
+      color: #BEC5CC;
+    }
   }
 
-  &__tag {
+  &__category {
     &-wrap {
       margin-top: 32px;
       margin-bottom: 40px;
@@ -117,18 +121,13 @@
   }
 }
 
-// если детальная есть:
-// .tax__tag-wrap {
-//   margin-top: 28px;
-// }
-
 @media screen and (min-width: @tablet-width) {
   .tax {
     box-sizing: border-box;
 
     width: 453px;
     min-height: 476px;
-    max-height: 740px;
+    // max-height: 740px;
     padding: 32px;
 
     background-color: #FFFFFF;
@@ -145,15 +144,16 @@
     }
 
     &__form {
+      flex-grow: 0;
       margin-top: 24px;
     }
 
-    &__input-tel-label,
-    &__input-tel {
+    &__input-salary-label,
+    &__input-salary {
       margin-bottom: 8px;
     }
 
-    &__tag {
+    &__category {
       &-wrap {
         display: flex;
         align-items: baseline;
@@ -189,16 +189,15 @@
         margin-bottom: 12px;
         padding-bottom: 12px;
       }
+
+      &-list--overflow {
+        // step = 57px
+        max-height: 216px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+      }
     }
   }
-
-  // если детальная есть:
-  // .tax__tag-wrap {
-  //   margin-top: 20px;
-  // }
-  // .tax__tag-list {
-  //   margin-left: 32px;
-  // }
 }
 
 @media screen and (min-width: @desktop-width) {
@@ -213,13 +212,8 @@
       padding-right: 30px;
     }
 
-    &__tag-list {
+    &__category-list {
       margin-left: 32px;
     }
   }
-
-  // если детальная есть:
-  // .tax__tag-wrap {
-  //   margin-top: 20px;
-  // }
 }

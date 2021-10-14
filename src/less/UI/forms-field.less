@@ -100,6 +100,13 @@
     }
   }
 
+  &:focus-visible + .ui-checkbox-label,
+  &:checked:focus-visible + .ui-checkbox-label {
+    &::before {
+      border: 1px solid #000;
+    }
+  }
+
   &:checked + .ui-checkbox-label {
     &::before {
       border-width: 0;
