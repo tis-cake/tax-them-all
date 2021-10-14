@@ -2,6 +2,7 @@ import React from 'react';
 import { nanoid } from 'nanoid';
 
 import { getTaxDeductions } from '../../../utils/calc';
+import { formatNumSpaces, formatYearDesc } from '../../../utils/format';
 
 interface ITaxDetailPaymentProps {
   salary: string,
@@ -23,19 +24,20 @@ const TaxDetailPayment: React.FC<ITaxDetailPaymentProps> = ({ salary }) => {
 
       <ul className={`tax__detail-list ${listOverflowClass}`}>
         {taxDeductions.map((el, index) => {
+          const currentIndex = index + 1;
           return (
             <li className="tax__detail-item" key={nanoid()}>
               <input
                 className="visually-hidden tax__checkbox ui-checkbox"
-                id={`field-checkbox-${index}`}
+                id={`field-checkbox-${currentIndex}`}
                 type="checkbox"
                 name="checkbox"
               />
               <label
                 className="tax__checkbox-label ui-checkbox-label"
-                htmlFor={`field-checkbox-${index}`}
+                htmlFor={`field-checkbox-${currentIndex}`}
               >
-                {el} рублей <span>в {++index}-ый год</span>
+                {formatNumSpaces(el)} рублей <span>{formatYearDesc(currentIndex)}</span>
               </label>
             </li>
           );
