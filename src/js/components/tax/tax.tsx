@@ -1,158 +1,123 @@
-import React from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
 
+import { TaxInfo } from './tax-info/tax-info';
+import { TaxInput } from './tax-input/tax-input';
+import { TaxCategory } from './tax-category/tax-category';
+import { TaxButtonCalc } from './tax-button-calc/tax-button-calc';
+import { TaxDetailTerm } from './tax-detail-term/tax-detail-term';
+import { TaxDetailPayment } from './tax-detail-payment/tax-detail-payment';
+import { TaxButtonSubmit } from './tax-button-submit/tax-button-submit';
 import { ButtonClose } from '../share/button-close/button-close';
 
-const Tax: React.FC = () => {
+import { AppRoute, TaxRoute } from '../../const';
+import { PageContext } from '../../context';
+
+interface ITaxProps {
+  overlayRef: React.MutableRefObject<HTMLDivElement>
+}
+
+const KEY_ESC: string = 'Escape';
+const KEY_ENTER: string = 'Enter';
+
+const Tax: React.FC<ITaxProps> = ({ overlayRef }) => {
+  const [salary, setSalary] = useState('');
+  const [category, setCategory] = useState(TaxRoute.CATEGORY_PAYMENT);
+  const [calculated, setCalculated] = useState(false);
+  const [validated, setValidated] = useState(false);
+
+  const { setCurrentPage } = useContext(PageContext);
+  const salaryRef = useRef<HTMLInputElement>(null);
+  const calcRef = useRef<HTMLButtonElement>(null);
+
+  const isCategoryPayment = category === TaxRoute.CATEGORY_PAYMENT;
+  const isCategoryTerm = category === TaxRoute.CATEGORY_TERM;
+
+  const handleInputSalaryChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
+    setCalculated(false);
+    setSalary(evt.currentTarget.value);
+    setValidated(salaryRef.current.validity.valid);
+  };
+
+  // Enter по заполненному инпуту вызовет подсчёт и вывод данных
+  // без необходимости наводить мышку и кликать по кнопке "Рассчитать"
+  const handleInputSalaryEnterKeyPress = (evt: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (evt.key === KEY_ENTER) {
+      evt.preventDefault();
+      calcRef.current.click();
+    }
+  };
+
+  const handleButtonCalcClick = (): void => {
+    setCalculated(true);
+  };
+
+  const handleButtonSubmitClick = (evt: React.FormEvent<HTMLButtonElement>): void => {
+    evt.preventDefault();
+    closeModal();
+  };
+
+  // ESC -> закрыть окно
+  const handleEscKeyPress = (evt: KeyboardEvent): void => {
+    if (evt.key === KEY_ESC) {
+      closeModal();
+    }
+  };
+
+  // overlay click -> закрыть окно
+  const handleTaxFormOutsideClick = (evt: MouseEvent): void => {
+    if (evt.target === overlayRef.current) {
+      closeModal();
+    }
+  };
+
+  // закрыть окно
+  function closeModal(): void {
+    setCurrentPage(AppRoute.PAGE_DEFAULT);
+  }
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleEscKeyPress);
+    window.addEventListener('click', handleTaxFormOutsideClick);
+    return () => {
+      window.removeEventListener('keydown', handleEscKeyPress);
+      window.removeEventListener('click', handleTaxFormOutsideClick);
+    };
+  }, []);
+
   return (
     <section className="page-tax__tax tax">
-      <ButtonClose parentClass='tax__btn-close' />
+      <ButtonClose parentClass="tax__btn-close" />
 
-      <h1 className="tax__title">Налоговый вычет</h1>
-      <p className="tax__desc">
-        Используйте налоговый вычет чтобы погасить ипотеку досрочно. Размер налогового вычета составляет не более 13% от своего официального годового дохода.
-      </p>
+      <TaxInfo />
 
-      <form
-        className="tax__form"
-        action="#"
-        method="post"
-      >
-        <label
-          className="tax__input-tel-label ui-label"
-          htmlFor="field-tel"
-        >
-          Ваша зарплата в месяц
-        </label>
-        <input
-          className="tax__input-tel ui-input"
-          type="number"
-          id="field-tel"
-          step="100"
-          required
-          placeholder="Введите данные"
-          // checked={checked}
-          // onChange={() => setChecked(!checked)}
+      <form className="tax__form">
+        <TaxInput
+          salary={salary}
+          salaryRef={salaryRef}
+          handleInputSalaryChange={handleInputSalaryChange}
+          handleInputSalaryEnterKeyPress={handleInputSalaryEnterKeyPress}
         />
 
-        <button
-          className="tax__btn-calc"
-        >
-          Рассчитать
-        </button>
+        <TaxButtonCalc
+          calcRef={calcRef}
+          validated={validated}
+          handleButtonCalcClick={handleButtonCalcClick}
+        />
 
-        <div className="tax__detail-wrap">
-          <p className="tax__detail-list-title ui-label">
-            Итого можете внести <span>в качестве досрочных:</span>
-          </p>
-          <ul className="tax__detail-list">
-            <li className="tax__detail-item">
-              <input
-                className="visually-hidden tax__checkbox ui-checkbox"
-                id="field-checkbox-1"
-                type="checkbox"
-                name="checkbox"
-                checked={true}
-              />
-              <label
-                className="tax__checkbox-label ui-checkbox-label"
-                htmlFor="field-checkbox-1"
-              >
-                78 000 рублей <span>в 1-ый год</span>
-              </label>
-            </li>
-            <li className="tax__detail-item">
-              <input
-                className="visually-hidden tax__checkbox ui-checkbox"
-                id="field-checkbox-2"
-                type="checkbox"
-                name="checkbox"
-                // checked={true}
-              />
-              <label
-                className="tax__checkbox-label ui-checkbox-label"
-                htmlFor="field-checkbox-2"
-              >
-                78 000 рублей <span>во 2-ой год</span>
-              </label>
-            </li>
-            <li className="tax__detail-item">
-              <input
-                className="visually-hidden tax__checkbox ui-checkbox"
-                id="field-checkbox-3"
-                type="checkbox"
-                name="checkbox"
-                // checked={true}
-              />
-              <label
-                className="tax__checkbox-label ui-checkbox-label"
-                htmlFor="field-checkbox-3"
-              >
-                78 000 рублей <span>во 2-ой год</span>
-              </label>
-            </li>
-            <li className="tax__detail-item">
-              <input
-                className="visually-hidden tax__checkbox ui-checkbox"
-                id="field-checkbox-4"
-                type="checkbox"
-                name="checkbox"
-                disabled
-                // checked={true}
-              />
-              <label
-                className="tax__checkbox-label ui-checkbox-label"
-                htmlFor="field-checkbox-4"
-              >
-                78 000 рублей <span>во 2-ой год</span>
-              </label>
-            </li>
-          </ul>
-        </div>
+        {isCategoryPayment && calculated && <TaxDetailPayment salary={salary} />}
 
-        <div className="tax__tag-wrap">
-          <p className="tax__tag-list-title ui-label">Что уменьшаем?</p>
-          <ul className="tax__tag-list">
-            <li className="tax__tag-item">
-              <input
-                className="visually-hidden tax__tag ui-tag"
-                id="field-tag-1"
-                type="radio"
-                name="tag"
-                checked={true}
-              />
-              <label
-                className="tax__tag-label ui-tag-label"
-                htmlFor="field-tag-1"
-              >
-                Платеж
-              </label>
-            </li>
-            <li className="tax__tag-item">
-              <input
-                className="visually-hidden tax__tag ui-tag"
-                id="field-tag-2"
-                type="radio"
-                name="tag"
-                // checked={false}
-              />
-              <label
-                className="tax__tag-label ui-tag-label"
-                htmlFor="field-tag-2"
-              >
-                Срок
-              </label>
-            </li>
-          </ul>
-        </div>
+        {isCategoryTerm && calculated && <TaxDetailTerm />}
 
-        <button
-          className="tax__btn-submit ui-button ui-button--primary"
-          type="submit"
-        >
-          Добавить
-        </button>
+        <TaxCategory
+          category={category}
+          setCategory={setCategory}
+        />
+
+        <TaxButtonSubmit
+          calculated={calculated}
+          handleButtonSubmitClick={handleButtonSubmitClick}
+        />
       </form>
-
     </section>
   );
 };
