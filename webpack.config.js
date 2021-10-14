@@ -64,7 +64,7 @@ module.exports = {
   output: {
     filename: getFileName('js'),
     path: path.resolve(__dirname, 'build'),
-    publicPath : '/',
+    // publicPath : '/',
     assetModuleFilename: '[path][name].[ext]',
   },
   devServer: {
@@ -80,6 +80,7 @@ module.exports = {
   plugins: [
     new HTMLWebpackPlugin({
       template: './index.html',
+      scriptLoading: 'blocking',
     }),
     new MiniCssExtractPlugin({
       filename: getFileName('css'),
