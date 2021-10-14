@@ -22,4 +22,3 @@ const ButtonStart: React.FC<IButtonStartProps> = ({ parentClass }) => {
 };
 
 export { ButtonStart };
-

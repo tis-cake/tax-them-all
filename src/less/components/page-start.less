@@ -1,7 +1,7 @@
 .page-start {
   display: grid;
   place-items: center;
-  min-height: 100vh;
+  height: 100%;
 
   background-color:#FF5E56;
   background-image: linear-gradient(255.35deg, #DC3131 0.83%, rgba(255, 79, 79, 0) 108.93%);
@@ -14,6 +14,10 @@
 }
 
 @media screen and (min-width: @tablet-width) {
+  .page-start {
+    min-height: 100vh;
+  }
+
   .page-start__link {
     width: 198px;
   }

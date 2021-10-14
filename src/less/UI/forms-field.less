@@ -92,12 +92,6 @@
       background-position: center;
       background-size: cover;
     }
-
-    &:hover {
-      &::before {
-        border: 1px solid #000;
-      }
-    }
   }
 
   &:focus-visible + .ui-checkbox-label,
@@ -122,3 +116,14 @@
     }
   }
 }
+
+@media screen and (min-width: @tablet-width) {
+  .ui-checkbox-label {
+    &:hover {
+      &::before {
+        border: 1px solid #000;
+      }
+    }
+  }
+}
+

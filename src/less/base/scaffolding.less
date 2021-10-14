@@ -4,6 +4,13 @@ body {
   padding: 0;
 }
 
+html,
+body,
+main,
+#root {
+  height: 100%;
+}
+
 body {
   font-family: 'LabGrotesque', 'Arial', sans-serif;
   font-weight: normal;
@@ -84,8 +91,16 @@ input[type="radio"].visually-hidden {
 }
 
 @media screen and (min-width: @tablet-width) {
+  html,
+  body,
+  main,
+  #root {
+    height: auto;
+  }
+
   body {
     font-size: 14px;
     line-height: 24px;
+    background-color: rgba(0, 0, 0, 0.3);
   }
 }
